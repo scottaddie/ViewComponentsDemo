@@ -17,9 +17,6 @@ namespace ViewComponentsDemo.ViewComponents
             _configuration = configuration;
         }
 
-        //TODO: See async/await examples here: 
-        //http://www.csharpstar.com/async-await-keyword-csharp/
-        //https://msdn.microsoft.com/en-us/library/mt674882.aspx
         public async Task<IViewComponentResult> InvokeAsync(int maxPriority, bool isDone)
         {
             var weather = await GetWeatherAsync(maxPriority, isDone);
