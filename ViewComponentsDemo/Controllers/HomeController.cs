@@ -4,10 +4,7 @@ namespace ViewComponentsDemo.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
-        {
-            return View();
-        }
+        public IActionResult Index() => View();
 
         public IActionResult About()
         {
@@ -23,9 +20,6 @@ namespace ViewComponentsDemo.Controllers
             return View();
         }
 
-        public IActionResult Error()
-        {
-            return View();
-        }
+        public IActionResult Error() => View();
     }
 }
