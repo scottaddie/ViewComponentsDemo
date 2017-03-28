@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -44,10 +45,10 @@ namespace ViewComponentsDemo.ViewComponents
             Temp lowTemp = Temp.FromKelvin(currentWeather.Main.Temp_Min);
             Temp highTemp = Temp.FromKelvin(currentWeather.Main.Temp_Max);
 
-            // Assign Fahrenheit temps
-            currentWeather.Main.Temp = currentTemp.Fahrenheit;
-            currentWeather.Main.Temp_Min = lowTemp.Fahrenheit;
-            currentWeather.Main.Temp_Max = highTemp.Fahrenheit;
+            // Assign rounded Fahrenheit temps
+            currentWeather.Main.Temp = Math.Ceiling(currentTemp.Fahrenheit);
+            currentWeather.Main.Temp_Min = Math.Ceiling(lowTemp.Fahrenheit);
+            currentWeather.Main.Temp_Max = Math.Ceiling(highTemp.Fahrenheit);
 
             return Task.Run(() => { return currentWeather; });
         }
