@@ -28,10 +28,9 @@ namespace ViewComponentsDemo.Services
         public Task<OpenWeatherMapResponse> GetCurrentWeatherAsync(string city, string stateAbbrev)
         {
             const string WEATHER_CACHE_KEY = "Weather";
-            OpenWeatherMapResponse currentWeather = null;
 
             // Look for cache key
-            if (!_cache.TryGetValue(WEATHER_CACHE_KEY, out currentWeather))
+            if (!_cache.TryGetValue(WEATHER_CACHE_KEY, out OpenWeatherMapResponse currentWeather))
             {
                 // Key not in cache, so get data
 
