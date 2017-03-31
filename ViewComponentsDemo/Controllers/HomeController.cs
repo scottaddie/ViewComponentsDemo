@@ -7,9 +7,9 @@ namespace ViewComponentsDemo.Controllers
     {
         public IActionResult Index() => View();
 
-        public IActionResult About() => View();
+        public IActionResult TagHelperInvocation() => View();
 
-        public IActionResult Contact()
+        public IActionResult ControllerInvocation()
         {
             return ViewComponent(nameof(CurrentWeather), new
             {
