@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using ViewComponentsDemo.Services;
 
 namespace ViewComponentsDemo
 {
@@ -34,6 +35,9 @@ namespace ViewComponentsDemo
             
             // Register IConfiguration with DI system to support IConfiguration.GetValue approach
             services.AddSingleton<IConfiguration>(Configuration);
+
+            // Configure DI to allow for constructor injection
+            services.AddTransient<IWeatherService, WeatherService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
