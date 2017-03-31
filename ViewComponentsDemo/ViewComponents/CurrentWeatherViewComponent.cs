@@ -18,15 +18,15 @@ namespace ViewComponentsDemo.ViewComponents
             _configuration = configuration;
         }
 
-        public async Task<IViewComponentResult> InvokeAsync()
+        public async Task<IViewComponentResult> InvokeAsync(string city, string stateAbbrev)
         {
-            OpenWeatherMapResponse currentWeather = await GetWeatherAsync();
+            OpenWeatherMapResponse currentWeather = await GetWeatherAsync(city?.Trim(), stateAbbrev?.Trim());
             VM.Weather weather = currentWeather.MapToWeather();
 
             return View(weather);
         }
 
-        private Task<OpenWeatherMapResponse> GetWeatherAsync()
+        private Task<OpenWeatherMapResponse> GetWeatherAsync(string city, string stateAbbrev)
         {
             // Fetch the user secret
             string apiKey = _configuration.GetValue<string>("OpenWeatherMapApiKey");
@@ -35,7 +35,7 @@ namespace ViewComponentsDemo.ViewComponents
 
             using (var client = new HttpClient())
             {
-                var endpointUrl = $"http://api.openweathermap.org/data/2.5/weather?q=Chicago,il&appid={apiKey}";
+                var endpointUrl = $"http://api.openweathermap.org/data/2.5/weather?q={city},{stateAbbrev}&appid={apiKey}";
                 var response = client.GetStringAsync(endpointUrl).Result;
                 
                 currentWeather = JsonConvert.DeserializeObject<OpenWeatherMapResponse>(response);
