@@ -1,9 +1,9 @@
-﻿@model ViewComponentsDemo.ViewComponents.OpenWeatherMapResponse
+﻿@model ViewComponentsDemo.ViewModels.Weather
 
-<h4>Current Weather for @Model.Name:</h4>
+<h4>Current Weather for @Model.Location:</h4>
 
 <ul class="list-group">
-    <li class="list-group-item"><strong>Currently:</strong> @Model.Main.Temp&deg;F</li>
-    <li class="list-group-item"><strong>Low:</strong> @Model.Main.Temp_Min&deg;F</li>
-    <li class="list-group-item"><strong>High:</strong> @Model.Main.Temp_Max&deg;F</li>
+    <li class="list-group-item"><strong>Currently:</strong> @Model.TemperatureCurrent&deg;F</li>
+    <li class="list-group-item"><strong>Low:</strong> @Model.TemperatureLow&deg;F</li>
+    <li class="list-group-item"><strong>High:</strong> @Model.TemperatureHigh&deg;F</li>
 </ul>

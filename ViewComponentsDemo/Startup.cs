@@ -31,7 +31,7 @@ namespace ViewComponentsDemo
         {
             // Add framework services.
             services.AddMvc();
-
+            
             // Register IConfiguration with DI system to support IConfiguration.GetValue approach
             services.AddSingleton<IConfiguration>(Configuration);
         }
