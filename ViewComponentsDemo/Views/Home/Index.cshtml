@@ -1,6 +1,8 @@
-﻿@{
+﻿@using ViewComponentsDemo.ViewComponents
+
+@{
     ViewData["Title"] = "Invoking VC";
 }
 
 <h3>Invoking a View Component</h3>
-@await Component.InvokeAsync("CurrentWeather", new { city = "Chicago", stateAbbrev = "IL" })
+@await Component.InvokeAsync(nameof(CurrentWeather), new { city = "Chicago", stateAbbrev = "IL" })

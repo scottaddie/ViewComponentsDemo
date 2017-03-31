@@ -7,11 +7,11 @@ using VM = ViewComponentsDemo.ViewModels;
 
 namespace ViewComponentsDemo.ViewComponents
 {
-    public class CurrentWeatherViewComponent : ViewComponent
+    public class CurrentWeather : ViewComponent
     {
         private readonly IWeatherService _service;
 
-        public CurrentWeatherViewComponent(IWeatherService service)
+        public CurrentWeather(IWeatherService service)
         {
             _service = service;
         }

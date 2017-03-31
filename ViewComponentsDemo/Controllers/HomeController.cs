@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using ViewComponentsDemo.ViewComponents;
 
 namespace ViewComponentsDemo.Controllers
 {
@@ -10,7 +11,7 @@ namespace ViewComponentsDemo.Controllers
 
         public IActionResult Contact()
         {
-            return ViewComponent("CurrentWeather", new
+            return ViewComponent(nameof(CurrentWeather), new
             {
                 city = "Chicago",
                 stateAbbrev = "IL"
