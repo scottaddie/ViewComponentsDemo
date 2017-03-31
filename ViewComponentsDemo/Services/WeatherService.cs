@@ -47,7 +47,7 @@ namespace ViewComponentsDemo.Services
 
                 // Keep in cache for this duration; reset time if accessed
                 var cacheEntryOptions = new MemoryCacheEntryOptions {
-                    SlidingExpiration = TimeSpan.FromSeconds(10)
+                    SlidingExpiration = TimeSpan.FromSeconds(30)
                 };
 
                 // Save data in cache

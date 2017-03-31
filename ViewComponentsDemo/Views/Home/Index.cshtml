@@ -1,9 +1,6 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Invoking VC";
 }
 
-<h3>Traditional View Component</h3>
+<h3>Invoking a View Component</h3>
 @await Component.InvokeAsync("CurrentWeather", new { city = "Chicago", stateAbbrev = "IL" })
-
-<h3>View Component as a Tag Helper</h3>
-<vc:current-weather city="Chicago" state-abbrev="IL"></vc:current-weather>
