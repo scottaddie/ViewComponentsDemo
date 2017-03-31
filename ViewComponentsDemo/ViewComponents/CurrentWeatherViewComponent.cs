@@ -18,15 +18,15 @@ namespace ViewComponentsDemo.ViewComponents
             _configuration = configuration;
         }
 
-        public async Task<IViewComponentResult> InvokeAsync(int maxPriority, bool isDone)
+        public async Task<IViewComponentResult> InvokeAsync()
         {
-            OpenWeatherMapResponse currentWeather = await GetWeatherAsync(maxPriority, isDone);
+            OpenWeatherMapResponse currentWeather = await GetWeatherAsync();
             VM.Weather weather = currentWeather.MapToWeather();
 
             return View(weather);
         }
 
-        private Task<OpenWeatherMapResponse> GetWeatherAsync(int maxPriority, bool isDone)
+        private Task<OpenWeatherMapResponse> GetWeatherAsync()
         {
             // Fetch the user secret
             string apiKey = _configuration.GetValue<string>("OpenWeatherMapApiKey");
