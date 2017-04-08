@@ -3,4 +3,9 @@
 }
 
 <h3>Invoking a View Component as a Tag Helper</h3>
-<vc:current-weather city="Chicago" state-abbrev="IL"></vc:current-weather>
+<vc:current-weather city="Chicago" state-abbrev="IL">
+</vc:current-weather>
+
+@* With a self-closing tag *@
+<vc:current-weather city="Chicago" 
+                    state-abbrev="IL" />
