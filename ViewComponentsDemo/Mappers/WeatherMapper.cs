@@ -15,6 +15,7 @@ namespace ViewComponentsDemo.Mappers
 
             var weather = new VM.Weather
             {
+                Humidity = response.Main.Humidity,
                 Location = response.Name,
                 TemperatureCurrent = Math.Ceiling(currentTemp.Fahrenheit),
                 TemperatureLow = Math.Ceiling(lowTemp.Fahrenheit),

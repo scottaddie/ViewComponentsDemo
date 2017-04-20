@@ -19,7 +19,7 @@ namespace ViewComponentsDemo.ViewComponents
         public async Task<IViewComponentResult> InvokeAsync(string city, string stateAbbrev)
         {
             OpenWeatherMapResponse currentWeather = await _service.GetCurrentWeatherAsync(city?.Trim(), stateAbbrev?.Trim());
-            VM.Weather weather = currentWeather.MapToWeather();
+             VM.Weather weather = currentWeather.MapToWeather();
 
             return View(weather);
         }
