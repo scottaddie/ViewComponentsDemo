@@ -57,7 +57,7 @@ namespace ViewComponentsDemo.Services
                 _cache.Set(WEATHER_CACHE_KEY, currentWeather, cacheEntryOptions);
             }
 
-            return Task.Run(() => { return currentWeather; });
+            return Task.Run(() => currentWeather);
         }
     }
 }
