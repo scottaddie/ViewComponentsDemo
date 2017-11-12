@@ -71,7 +71,7 @@ namespace ViewComponentsDemo.Mappers
         {
             var conditions = string.Empty;
 
-            if (response.Weather.Count > 0)
+            if (response.Weather != null && response.Weather.Count > 0)
             {
                 response.Weather.ForEach(c =>
                 {
