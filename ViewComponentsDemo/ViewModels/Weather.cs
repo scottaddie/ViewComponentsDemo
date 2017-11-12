@@ -2,6 +2,7 @@
 {
     public class Weather
     {
+        public string Conditions { get; set; }
         public double Humidity { get; set; }
         public string Location { get; set; }
         public string Scale { get; set; }

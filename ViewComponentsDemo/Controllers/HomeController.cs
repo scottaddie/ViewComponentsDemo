@@ -15,7 +15,8 @@ namespace ViewComponentsDemo.Controllers
             {
                 city = "Chicago",
                 stateAbbrev = "IL",
-                tempScale = TemperatureScale.Celsius
+                tempScale = TemperatureScale.Celsius,
+                lang = Language.Bulgarian
             });
 
         public IActionResult Error() => View();

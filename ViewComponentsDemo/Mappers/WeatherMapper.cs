@@ -69,8 +69,19 @@ namespace ViewComponentsDemo.Mappers
         public static VM.Weather MapToWeather(this OpenWeatherMapResponse response,
             TemperatureScale tempScale)
         {
+            var conditions = string.Empty;
+
+            if (response.Weather.Count > 0)
+            {
+                response.Weather.ForEach(c =>
+                {
+                    conditions += $"{c.Main} ( {c.Description} ) ";
+                });
+            }
+
             var weather = new VM.Weather
             {
+                Conditions = conditions,
                 Humidity = response.Main.Humidity,
                 Location = response.Name,
                 Scale = tempScale.ToFriendlyString(),
