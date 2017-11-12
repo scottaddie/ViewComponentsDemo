@@ -83,7 +83,7 @@ namespace ViewComponentsDemo.Mappers
             {
                 Conditions = conditions,
                 Humidity = response.Main.Humidity,
-                Location = response.Name,
+                Location = $"{response.Name}, {response.Sys?.Country}",
                 Scale = tempScale.ToFriendlyString(),
                 TemperatureCurrent = Math.Ceiling(response.Main.Temp),
                 TemperatureLow = Math.Ceiling(response.Main.Temp_Min),
