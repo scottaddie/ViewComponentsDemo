@@ -70,12 +70,18 @@ namespace ViewComponentsDemo.Mappers
             TemperatureScale tempScale)
         {
             var conditions = string.Empty;
+            var iconMarkup = string.Empty;
 
             if (response.Weather != null && response.Weather.Count > 0)
             {
                 response.Weather.ForEach(c =>
                 {
-                    conditions += $"{c.Main} ( {c.Description} ) ";
+                    if (!string.IsNullOrEmpty(c.Icon))
+                    {
+                        iconMarkup = $"<img src='http://openweathermap.org/img/w/{c.Icon}.png' alt='Icon depicting current weather' />";
+                    }
+
+                    conditions += $"{c.Main} ( {c.Description} ) {iconMarkup}<br />";
                 });
             }
 
