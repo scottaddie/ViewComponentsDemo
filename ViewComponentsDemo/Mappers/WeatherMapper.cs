@@ -4,6 +4,31 @@ using VM = ViewComponentsDemo.ViewModels;
 
 namespace ViewComponentsDemo.Mappers
 {
+    public enum Language
+    {
+        Bulgarian,
+        English,
+        French
+    }
+
+    public static class LanguageExtensions
+    {
+        public static string ToLanguageCode(this Language lang)
+        {
+            switch (lang)
+            {
+                case Language.Bulgarian:
+                    return "bg";
+                case Language.English:
+                    return "en";
+                case Language.French:
+                    return "fr";
+                default:
+                    return "en";
+            }
+        }
+    }
+
     public enum TemperatureScale
     {
         Celsius,
@@ -14,7 +39,7 @@ namespace ViewComponentsDemo.Mappers
     {
         public static string ToFriendlyString(this TemperatureScale tempScale)
         {
-            switch(tempScale)
+            switch (tempScale)
             {
                 case TemperatureScale.Celsius:
                     return "C";
@@ -24,10 +49,23 @@ namespace ViewComponentsDemo.Mappers
                     return string.Empty;
             }
         }
+
+        public static string ToUnitsType(this TemperatureScale tempScale)
+        {
+            switch (tempScale)
+            {
+                case TemperatureScale.Celsius:
+                    return "metric";
+                case TemperatureScale.Fahrenheit:
+                    return "imperial";
+                default:
+                    return string.Empty;
+            }
+        }
     }
 
     public static class WeatherMapper
-    { 
+    {
         public static VM.Weather MapToWeather(this OpenWeatherMapResponse response,
             TemperatureScale tempScale)
         {

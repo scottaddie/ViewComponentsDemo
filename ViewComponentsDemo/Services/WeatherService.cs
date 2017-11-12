@@ -12,7 +12,7 @@ namespace ViewComponentsDemo.Services
     public interface IWeatherService
     {
         Task<OpenWeatherMapResponse> GetCurrentWeatherAsync(
-            string city, string stateAbbrev, TemperatureScale tempScale);
+            string city, string stateAbbrev, TemperatureScale tempScale, Language lang);
     }
 
     public class WeatherService : IWeatherService
@@ -28,10 +28,9 @@ namespace ViewComponentsDemo.Services
         }
 
         public Task<OpenWeatherMapResponse> GetCurrentWeatherAsync(
-            string city, string stateAbbrev, TemperatureScale tempScale)
+            string city, string stateAbbrev, TemperatureScale tempScale, Language lang)
         {
             const string WEATHER_CACHE_KEY = "Weather";
-            string unitsType = (tempScale == TemperatureScale.Celsius) ? "metric" : "imperial";
 
             // Look for cache key
             if (!_cache.TryGetValue(WEATHER_CACHE_KEY, out OpenWeatherMapResponse currentWeather))
@@ -40,13 +39,16 @@ namespace ViewComponentsDemo.Services
 
                 // Fetch the user secret
                 string apiKey = _configuration.GetValue<string>("OpenWeatherMapApiKey");
-
+                
                 if (String.IsNullOrWhiteSpace(apiKey))
                     throw new ArgumentException("Unable to find an OpenWeatherMap API key in the user secret store.");
 
+                string langCode = lang.ToLanguageCode();
+                string unitsType = tempScale.ToUnitsType();
+                
                 using (var client = new HttpClient())
                 {
-                    var endpointUrl = $"http://api.openweathermap.org/data/2.5/weather?q={city},{stateAbbrev}&units={unitsType}&appid={apiKey}";
+                    var endpointUrl = $"http://api.openweathermap.org/data/2.5/weather?q={city},{stateAbbrev}&lang={langCode}&units={unitsType}&appid={apiKey}";
                     var response = client.GetStringAsync(endpointUrl).Result;
 
                     currentWeather = JsonConvert.DeserializeObject<OpenWeatherMapResponse>(response);
