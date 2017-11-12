@@ -9,14 +9,12 @@ namespace ViewComponentsDemo.Controllers
 
         public IActionResult TagHelperInvocation() => View();
 
-        public IActionResult ControllerInvocation()
-        {
-            return ViewComponent(nameof(CurrentWeather), new
+        public IActionResult ControllerInvocation() => 
+            ViewComponent(nameof(CurrentWeather), new
             {
                 city = "Chicago",
                 stateAbbrev = "IL"
             });
-        }
 
         public IActionResult Error() => View();
     }

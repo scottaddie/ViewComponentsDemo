@@ -9,10 +9,8 @@ namespace ViewComponentsDemo
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
-        {
+        public Startup(IConfiguration configuration) => 
             Configuration = configuration;
-        }
 
         public IConfiguration Configuration { get; }
 
@@ -20,12 +18,10 @@ namespace ViewComponentsDemo
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMemoryCache();
-
-            // Add framework services.
             services.AddMvc();
             
             // Register IConfiguration with DI system to support IConfiguration.GetValue approach
-            services.AddSingleton<IConfiguration>(Configuration);
+            services.AddSingleton(Configuration);
 
             // Configure DI to allow for constructor injection
             services.AddTransient<IWeatherService, WeatherService>();
