@@ -1,9 +1,14 @@
 ﻿@using ViewComponentsDemo.ViewComponents
+@using ViewComponentsDemo.Mappers
 
 @{
     ViewData["Title"] = "Invoking VC";
 }
 
 <h3>Invoking a View Component</h3>
-@await Component.InvokeAsync(nameof(CurrentWeather), 
-    new { city = "Chicago", stateAbbrev = "IL" })
+@await Component.InvokeAsync(nameof(CurrentWeather),
+    new {
+        city = "Chicago",
+        stateAbbrev = "IL",
+        tempScale = TemperatureScale.Celsius
+    })

@@ -4,13 +4,15 @@ using Newtonsoft.Json;
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
+using ViewComponentsDemo.Mappers;
 using ViewComponentsDemo.Models;
 
 namespace ViewComponentsDemo.Services
 {
     public interface IWeatherService
     {
-        Task<OpenWeatherMapResponse> GetCurrentWeatherAsync(string city, string stateAbbrev);
+        Task<OpenWeatherMapResponse> GetCurrentWeatherAsync(
+            string city, string stateAbbrev, TemperatureScale tempScale);
     }
 
     public class WeatherService : IWeatherService
@@ -25,9 +27,11 @@ namespace ViewComponentsDemo.Services
             _cache = cache;
         }
 
-        public Task<OpenWeatherMapResponse> GetCurrentWeatherAsync(string city, string stateAbbrev)
+        public Task<OpenWeatherMapResponse> GetCurrentWeatherAsync(
+            string city, string stateAbbrev, TemperatureScale tempScale)
         {
             const string WEATHER_CACHE_KEY = "Weather";
+            string unitsType = (tempScale == TemperatureScale.Celsius) ? "metric" : "imperial";
 
             // Look for cache key
             if (!_cache.TryGetValue(WEATHER_CACHE_KEY, out OpenWeatherMapResponse currentWeather))
@@ -42,7 +46,7 @@ namespace ViewComponentsDemo.Services
 
                 using (var client = new HttpClient())
                 {
-                    var endpointUrl = $"http://api.openweathermap.org/data/2.5/weather?q={city},{stateAbbrev}&appid={apiKey}";
+                    var endpointUrl = $"http://api.openweathermap.org/data/2.5/weather?q={city},{stateAbbrev}&units={unitsType}&appid={apiKey}";
                     var response = client.GetStringAsync(endpointUrl).Result;
 
                     currentWeather = JsonConvert.DeserializeObject<OpenWeatherMapResponse>(response);
@@ -50,7 +54,8 @@ namespace ViewComponentsDemo.Services
                 }
 
                 // Keep in cache for this duration; reset time if accessed
-                var cacheEntryOptions = new MemoryCacheEntryOptions {
+                var cacheEntryOptions = new MemoryCacheEntryOptions
+                {
                     SlidingExpiration = TimeSpan.FromSeconds(30000000)
                 };
 

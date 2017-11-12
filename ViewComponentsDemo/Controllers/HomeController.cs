@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using ViewComponentsDemo.Mappers;
 using ViewComponentsDemo.ViewComponents;
 
 namespace ViewComponentsDemo.Controllers
@@ -13,7 +14,8 @@ namespace ViewComponentsDemo.Controllers
             ViewComponent(nameof(CurrentWeather), new
             {
                 city = "Chicago",
-                stateAbbrev = "IL"
+                stateAbbrev = "IL",
+                tempScale = TemperatureScale.Celsius
             });
 
         public IActionResult Error() => View();

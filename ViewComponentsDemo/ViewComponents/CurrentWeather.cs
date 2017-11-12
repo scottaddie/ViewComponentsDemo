@@ -15,11 +15,13 @@ namespace ViewComponentsDemo.ViewComponents
         public CurrentWeather(IWeatherService service) => 
             _service = service;
 
-        public async Task<IViewComponentResult> InvokeAsync(string city, string stateAbbrev)
+        public async Task<IViewComponentResult> InvokeAsync(
+            string city, string stateAbbrev, TemperatureScale tempScale)
         {
             OpenWeatherMapResponse currentWeather = 
-                await _service.GetCurrentWeatherAsync(city?.Trim(), stateAbbrev?.Trim());
-            VM.Weather weather = currentWeather.MapToWeather(TemperatureScale.Celsius);
+                await _service.GetCurrentWeatherAsync(
+                    city?.Trim(), stateAbbrev?.Trim(), tempScale);
+            VM.Weather weather = currentWeather.MapToWeather(tempScale);
 
             return View(weather);
         }
