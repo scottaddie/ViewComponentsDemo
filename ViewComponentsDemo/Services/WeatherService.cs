@@ -38,17 +38,18 @@ namespace ViewComponentsDemo.Services
                 // Key not in cache, so get data
 
                 // Fetch the user secret
-                string apiKey = _configuration.GetValue<string>("OpenWeatherMapApiKey");
+                var apiKey = _configuration.GetValue<string>("OpenWeatherMapApiKey");
                 
                 if (String.IsNullOrWhiteSpace(apiKey))
                     throw new ArgumentException("Unable to find an OpenWeatherMap API key in the user secret store.");
 
                 string langCode = lang.ToLanguageCode();
                 string unitsType = tempScale.ToUnitsType();
-                
+            
                 using (var client = new HttpClient())
                 {
-                    var endpointUrl = $"http://api.openweathermap.org/data/2.5/weather?q={city},{stateAbbrev}&lang={langCode}&units={unitsType}&appid={apiKey}";
+                    var baseUrl = _configuration.GetValue<string>("WeatherApiBaseUrl");
+                    var endpointUrl = $"{baseUrl}?q={city},{stateAbbrev}&lang={langCode}&units={unitsType}&appid={apiKey}";
                     var response = client.GetStringAsync(endpointUrl).Result;
 
                     currentWeather = JsonConvert.DeserializeObject<OpenWeatherMapResponse>(response);
