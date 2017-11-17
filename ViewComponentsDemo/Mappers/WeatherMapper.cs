@@ -67,23 +67,22 @@ namespace ViewComponentsDemo.Mappers
     public static class WeatherMapper
     {
         public static VM.Weather MapToWeather(this OpenWeatherMapResponse response,
-            TemperatureScale tempScale)
+                                              TemperatureScale tempScale)
         {
             var conditions = string.Empty;
             var iconMarkup = string.Empty;
 
-            if (response.Weather != null && response.Weather.Count > 0)
+            response.Weather?.ForEach(c =>
             {
-                response.Weather.ForEach(c =>
-                {
-                    if (!string.IsNullOrEmpty(c.Icon))
-                    {
-                        iconMarkup = $"<img src='http://openweathermap.org/img/w/{c.Icon}.png' alt='Icon depicting current weather' />";
-                    }
+                iconMarkup = string.Empty;
 
-                    conditions += $"{c.Main} ( {c.Description} ) {iconMarkup}<br />";
-                });
-            }
+                if (!string.IsNullOrEmpty(c.Icon))
+                {
+                    iconMarkup = $"<img src='http://openweathermap.org/img/w/{c.Icon}.png' alt='Icon depicting current weather' />";
+                }
+
+                conditions += $"{c.Main} ( {c.Description} ) {iconMarkup}<br />";
+            });
 
             var weather = new VM.Weather
             {
