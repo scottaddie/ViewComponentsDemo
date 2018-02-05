@@ -55,7 +55,9 @@ namespace ViewComponentsDemo.Services
                 var response = await Client.GetStringAsync(endpointUrl);
 
                 currentWeather = JsonConvert.DeserializeObject<OpenWeatherMapResponse>(response);
-                // currentWeather = JsonConvert.DeserializeObject<OpenWeatherMapResponse>("{ \"coord\": { \"lon\": -87.65, \"lat\": 41.85 }, \"weather\": [{ \"id\": 800, \"main\": \"Clear\", \"description\": \"clear sky\", \"icon\": \"01d\" }, { \"id\": 801, \"main\": \"Windy\", \"description\": \"windy\", \"icon\": \"50n\" }], \"base\": \"stations\", \"main\": { \"temp\": 288.15, \"pressure\": 1030, \"humidity\": 87, \"temp_min\": 287.15, \"temp_max\": 289.15 }, \"visibility\": 16093, \"wind\": { \"speed\": 4.6, \"deg\": 110 }, \"clouds\": { \"all\": 1 }, \"dt\": 1504962900, \"sys\": { \"type\": 1, \"id\": 966, \"message\": 0.0064, \"country\": \"US\", \"sunrise\": 1504956327, \"sunset\": 1505002140 }, \"id\": 4887398, \"name\": \"Chicago\", \"cod\": 200 }");
+                // currentWeather = JsonConvert.DeserializeObject<OpenWeatherMapResponse>(
+                //     @"{""coord"":{""lon"":-80.14,""lat"":26.12},""weather"":[{""id"":801,""main"":""Clouds"",""description"":""few clouds"",""icon"":""02d""}],""base"":""stations"",""main"":{""temp"":74.3,""pressure"":1020,""humidity"":73,""temp_min"":73.4,""temp_max"":75.2},""visibility"":16093,""wind"":{""speed"":11.41,""deg"":40},""clouds"":{""all"":20},""dt"":1517867580,""sys"":{""type"":1,""id"":657,""message"":0.0035,""country"":""US"",""sunrise"":1517832128,""sunset"":1517872047},""id"":4155966,""name"":""Fort Lauderdale"",""cod"":200}"
+                // );
 
                 // Keep in cache for this duration; reset time if accessed
                 var cacheEntryOptions = new MemoryCacheEntryOptions
