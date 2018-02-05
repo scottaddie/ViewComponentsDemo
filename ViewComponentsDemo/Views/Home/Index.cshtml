@@ -8,8 +8,8 @@
 <h3>Invoking a View Component</h3>
 @await Component.InvokeAsync(nameof(CurrentWeather),
     new {
-        city = "Chicago",
-        stateAbbrev = "IL",
-        tempScale = TemperatureScale.Celsius,
-        lang = Language.Bulgarian
+        city = "Fort Lauderdale",
+        countryCode = "US",
+        tempScale = TemperatureScale.Fahrenheit,
+        lang = Language.English
     })

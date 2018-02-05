@@ -13,10 +13,10 @@ namespace ViewComponentsDemo.Controllers
         public IActionResult ControllerInvocation() => 
             ViewComponent(nameof(CurrentWeather), new
             {
-                city = "Chicago",
-                stateAbbrev = "IL",
-                tempScale = TemperatureScale.Celsius,
-                lang = Language.Bulgarian
+                city = "Fort Lauderdale",
+                countryCode = "US",
+                tempScale = TemperatureScale.Fahrenheit,
+                lang = Language.English
             });
 
         public IActionResult Error() => View();
