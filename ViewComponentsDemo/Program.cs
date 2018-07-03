@@ -5,12 +5,11 @@ namespace ViewComponentsDemo
 {
     public class Program
     {
-        public static void Main(string[] args) => 
-            BuildWebHost(args).Run();
+        public static void Main(string[] args) =>
+            CreateWebHostBuilder(args).Build().Run();
 
-        public static IWebHost BuildWebHost(string[] args) =>
+        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>()
-                .Build();
+                .UseStartup<Startup>();
     }
 }
