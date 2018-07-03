@@ -2,7 +2,7 @@
 An ASP.NET Core MVC application demonstrating the use of [View Components](https://docs.microsoft.com/aspnet/core/mvc/views/view-components)
 
 ### Prerequisites
-1. .NET Core SDK 2.1
+1. .NET Core SDK 2.1 or later. ([Download here](https://www.microsoft.com/net/download/all))
 
 ### Setup
 1. Request a free API key for OpenWeatherMap's Current Weather API [here](https://home.openweathermap.org/users/sign_up).
