@@ -1,16 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.0</TargetFramework>
-    <ProjectUISubcaption>.NET Core 2.0</ProjectUISubcaption>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <ProjectUISubcaption>.NET Core 2.1</ProjectUISubcaption>
   </PropertyGroup>
   <PropertyGroup>
     <UserSecretsId>88af32c3-004d-4919-b78d-06f2f837b67e</UserSecretsId>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.5" />
-  </ItemGroup>
-  <ItemGroup>
-    <DotNetCliToolReference Include="Microsoft.Extensions.SecretManager.Tools" Version="2.0.0" />
-    <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
 </Project>
