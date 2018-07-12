@@ -17,14 +17,16 @@ namespace ViewComponentsDemo.Services
 
     public class WeatherService : IWeatherService
     {
-        private static HttpClient Client = new HttpClient();
         private readonly IConfiguration _configuration;
+        private readonly IHttpClientFactory _httpClient;
         private readonly IMemoryCache _cache;
 
         public WeatherService(IConfiguration configuration,
+                              IHttpClientFactory httpClient,
                               IMemoryCache cache)
         {
             _configuration = configuration;
+            _httpClient = httpClient;
             _cache = cache;
         }
 
@@ -52,7 +54,8 @@ namespace ViewComponentsDemo.Services
                 var baseUrl = weatherConfig.GetValue<string>("ApiBaseUrl");
                 var endpointUrl = $"{baseUrl}?q={city},{countryCode}&lang={langCode}&units={unitsType}&appid={apiKey}";
 
-                var response = await Client.GetStringAsync(endpointUrl);
+                var client = _httpClient.CreateClient();
+                var response = await client.GetStringAsync(endpointUrl);
 
                 currentWeather = JsonConvert.DeserializeObject<OpenWeatherMapResponse>(response);
                 // currentWeather = JsonConvert.DeserializeObject<OpenWeatherMapResponse>(
