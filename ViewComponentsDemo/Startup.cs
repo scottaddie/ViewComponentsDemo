@@ -17,9 +17,9 @@ namespace ViewComponentsDemo
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMemoryCache();
+            services.AddHttpClient();
             services.AddMvc()
                     .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-            services.AddHttpClient();
 
             // Register IConfiguration with DI system to support IConfiguration.GetValue approach
             services.AddSingleton(Configuration);
