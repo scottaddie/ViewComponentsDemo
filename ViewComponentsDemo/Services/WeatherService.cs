@@ -55,22 +55,31 @@ namespace ViewComponentsDemo.Services
                 var endpointUrl = $"{baseUrl}?q={city},{countryCode}&lang={langCode}&units={unitsType}&appid={apiKey}";
 
                 var client = _httpClient.CreateClient();
-                var response = await client.GetStringAsync(endpointUrl);
+                var response = await client.GetAsync(endpointUrl);
 
-                currentWeather = JsonConvert.DeserializeObject<OpenWeatherMapResponse>(response);
-                // currentWeather = JsonConvert.DeserializeObject<OpenWeatherMapResponse>(
-                //     @"{""coord"":{""lon"":-80.14,""lat"":26.12},""weather"":[{""id"":801,""main"":""Clouds"",""description"":""few clouds"",""icon"":""02d""}],""base"":""stations"",""main"":{""temp"":74.3,""pressure"":1020,""humidity"":73,""temp_min"":73.4,""temp_max"":75.2},""visibility"":16093,""wind"":{""speed"":11.41,""deg"":40},""clouds"":{""all"":20},""dt"":1517867580,""sys"":{""type"":1,""id"":657,""message"":0.0035,""country"":""US"",""sunrise"":1517832128,""sunset"":1517872047},""id"":4155966,""name"":""Fort Lauderdale"",""cod"":200}"
-                // );
-
-                // Keep in cache for this duration; reset time if accessed
-                var cacheEntryOptions = new MemoryCacheEntryOptions
+                if (response.IsSuccessStatusCode)
                 {
-                    SlidingExpiration = TimeSpan.FromSeconds(
-                        weatherConfig.GetValue<int>("CacheDuration"))
-                };
+                    var responseAsString = await response.Content.ReadAsStringAsync();
 
-                // Save data in cache
-                _cache.Set(WEATHER_CACHE_KEY, currentWeather, cacheEntryOptions);
+                    currentWeather = JsonConvert.DeserializeObject<OpenWeatherMapResponse>(responseAsString);
+                    //currentWeather = JsonConvert.DeserializeObject<OpenWeatherMapResponse>(
+                    //    @"{""coord"":{""lon"":-94.56,""lat"":39.08},""weather"":[{""id"":803,""main"":""Clouds"",""description"":""nuageux"",""icon"":""04d""}],""base"":""stations"",""main"":{""temp"":98.02,""pressure"":1017,""humidity"":39,""temp_min"":95,""temp_max"":102.2},""visibility"":16093,""wind"":{""speed"":6.62,""deg"":173.507},""clouds"":{""all"":75},""dt"":1531422000,""sys"":{""type"":1,""id"":1647,""message"":0.0049,""country"":""US"",""sunrise"":1531393391,""sunset"":1531446269},""id"":4393217,""name"":""Kansas City"",""cod"":200}"
+                    //);
+
+                    // Keep in cache for this duration; reset time if accessed
+                    var cacheEntryOptions = new MemoryCacheEntryOptions
+                    {
+                        SlidingExpiration = TimeSpan.FromSeconds(
+                            weatherConfig.GetValue<int>("CacheDuration"))
+                    };
+
+                    // Save data in cache
+                    _cache.Set(WEATHER_CACHE_KEY, currentWeather, cacheEntryOptions);
+                }
+                else
+                {
+                    currentWeather = null;
+                }
             }
 
             return currentWeather;
