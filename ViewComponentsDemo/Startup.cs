@@ -19,8 +19,8 @@ namespace ViewComponentsDemo
         {
             services.AddMemoryCache();
 
-            // Failed requests are retried up to 3 times.
-            services.AddHttpClient("WeatherApi")
+            // Failed requests with the typed HTTP client are retried up to 3 times.
+            services.AddHttpClient<WeatherService>()
                     .AddTransientHttpErrorPolicy(p => p.RetryAsync(3));
 
             services.AddMvc()
@@ -28,9 +28,6 @@ namespace ViewComponentsDemo
 
             // Register IConfiguration with DI system to support IConfiguration.GetValue approach
             services.AddSingleton(Configuration);
-
-            // Configure DI to allow for constructor injection
-            services.AddTransient<IWeatherService, WeatherService>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
