@@ -3,14 +3,13 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
-using Newtonsoft.Json;
 using ViewComponentsDemo.Models;
 
 namespace ViewComponentsDemo.Services
 {
     public interface IWeatherService
     {
-        Task<OpenWeatherMapResponse> GetCurrentWeatherAsync(ForecastRequest request);
+        Task<Forecast> GetCurrentWeatherAsync(ForecastRequest request);
     }
 
     public class WeatherService : IWeatherService
@@ -28,12 +27,12 @@ namespace ViewComponentsDemo.Services
             _cache = cache;
         }
 
-        public async Task<OpenWeatherMapResponse> GetCurrentWeatherAsync(ForecastRequest request)
+        public async Task<Forecast> GetCurrentWeatherAsync(ForecastRequest request)
         {
             const string WEATHER_CACHE_KEY = "Weather";
 
             // Look for cache key
-            if (!_cache.TryGetValue(WEATHER_CACHE_KEY, out OpenWeatherMapResponse currentWeather))
+            if (!_cache.TryGetValue(WEATHER_CACHE_KEY, out Forecast currentWeather))
             {
                 // Key not in cache, so get data
 
@@ -51,13 +50,7 @@ namespace ViewComponentsDemo.Services
 
                 var response = await _httpClient.GetAsync(endpointUrl);
                 response.EnsureSuccessStatusCode();
-
-                var responseAsString = await response.Content.ReadAsStringAsync();
-
-                currentWeather = JsonConvert.DeserializeObject<OpenWeatherMapResponse>(responseAsString);
-                //currentWeather = JsonConvert.DeserializeObject<OpenWeatherMapResponse>(
-                //    @"{""coord"":{""lon"":-94.56,""lat"":39.08},""weather"":[{""id"":803,""main"":""Clouds"",""description"":""nuageux"",""icon"":""04d""}],""base"":""stations"",""main"":{""temp"":98.02,""pressure"":1017,""humidity"":39,""temp_min"":95,""temp_max"":102.2},""visibility"":16093,""wind"":{""speed"":6.62,""deg"":173.507},""clouds"":{""all"":75},""dt"":1531422000,""sys"":{""type"":1,""id"":1647,""message"":0.0049,""country"":""US"",""sunrise"":1531393391,""sunset"":1531446269},""id"":4393217,""name"":""Kansas City"",""cod"":200}"
-                //);
+                currentWeather = await response.Content.ReadAsAsync<Forecast>();
 
                 // Keep in cache for this duration; reset time if accessed
                 var cacheEntryOptions = new MemoryCacheEntryOptions

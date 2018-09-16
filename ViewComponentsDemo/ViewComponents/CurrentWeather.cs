@@ -27,7 +27,7 @@ namespace ViewComponentsDemo.ViewComponents
                 LanguageCode = lang.ToLanguageCode()
             };
 
-            OpenWeatherMapResponse currentWeather =
+            Forecast currentWeather =
                 await _service.GetCurrentWeatherAsync(request);
             VM.Weather weather = currentWeather.MapToWeather(tempScale);
 
