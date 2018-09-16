@@ -10,18 +10,25 @@ namespace ViewComponentsDemo.ViewComponents
 {
     public class CurrentWeather : ViewComponent
     {
-        private readonly IWeatherService _service;
+        private readonly WeatherService _service;
 
-        public CurrentWeather(IWeatherService service) => 
+        public CurrentWeather(WeatherService service) => 
             _service = service;
 
         public async Task<IViewComponentResult> InvokeAsync(
             string city, string countryCode, 
             TemperatureScale tempScale, Language lang)
         {
+            var request = new ForecastRequest
+            {
+                City = city?.Trim(),
+                CountryCode = countryCode.Trim(),
+                TemperatureScale = tempScale.ToUnitsType(),
+                LanguageCode = lang.ToLanguageCode()
+            };
+
             OpenWeatherMapResponse currentWeather =
-                await _service.GetCurrentWeatherAsync(
-                    city?.Trim(), countryCode?.Trim(), tempScale, lang);
+                await _service.GetCurrentWeatherAsync(request);
             VM.Weather weather = currentWeather.MapToWeather(tempScale);
 
             return View(weather);
