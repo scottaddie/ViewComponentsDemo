@@ -11,13 +11,14 @@ variables:
 
 steps:
 - task: DotNetCoreCLI@2
-  displayName: 'Build'
+  displayName: Build
   inputs:
-    projects: '$(Parameters.RestoreBuildProjects)'
+    command: build
+    projects: ViewComponentsDemo.csproj
     arguments: '-c $(buildConfiguration)'
 
 - task: DotNetCoreCLI@2
-  displayName: 'Publish'
+  displayName: Publish
   inputs:
     command: publish
     publishWebProjects: True
