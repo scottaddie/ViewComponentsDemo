@@ -14,7 +14,7 @@ steps:
   displayName: Build
   inputs:
     command: build
-    projects: ViewComponentsDemo.csproj
+    projects: '**/*.csproj'
     arguments: '-c $(buildConfiguration)'
 
 - task: DotNetCoreCLI@2
