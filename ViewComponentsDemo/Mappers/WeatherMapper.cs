@@ -66,7 +66,7 @@ namespace ViewComponentsDemo.Mappers
 
     public static class WeatherMapper
     {
-        public static VM.Weather MapToWeather(this OpenWeatherMapResponse response,
+        public static VM.Weather MapToWeather(this Forecast response,
                                               TemperatureScale tempScale)
         {
             var conditions = string.Empty;
