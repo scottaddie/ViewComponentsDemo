@@ -1,3 +1,5 @@
+[![Build status](https://scottaddie.visualstudio.com/ViewComponentsDemo/_apis/build/status/ViewComponentsDemo-ASP.NET%20Core-CI)](https://scottaddie.visualstudio.com/ViewComponentsDemo/_build/latest?definitionId=2)
+
 # ViewComponentsDemo
 An ASP.NET Core MVC application demonstrating the use of [View Components](https://docs.microsoft.com/aspnet/core/mvc/views/view-components)
 
