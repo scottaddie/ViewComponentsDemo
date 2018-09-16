@@ -54,7 +54,7 @@ namespace ViewComponentsDemo.Services
                 var baseUrl = weatherConfig.GetValue<string>("ApiBaseUrl");
                 var endpointUrl = $"{baseUrl}?q={city},{countryCode}&lang={langCode}&units={unitsType}&appid={apiKey}";
 
-                var client = _httpClient.CreateClient();
+                var client = _httpClient.CreateClient("WeatherApi");
                 var response = await client.GetAsync(endpointUrl);
 
                 if (response.IsSuccessStatusCode)

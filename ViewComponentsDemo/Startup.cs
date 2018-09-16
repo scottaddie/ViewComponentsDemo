@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Polly;
 using ViewComponentsDemo.Services;
 
 namespace ViewComponentsDemo
@@ -17,7 +18,11 @@ namespace ViewComponentsDemo
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMemoryCache();
-            services.AddHttpClient();
+
+            // Failed requests are retried up to 3 times.
+            services.AddHttpClient("WeatherApi")
+                    .AddTransientHttpErrorPolicy(p => p.RetryAsync(3));
+
             services.AddMvc()
                     .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
