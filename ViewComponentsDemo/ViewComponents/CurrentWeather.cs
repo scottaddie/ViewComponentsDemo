@@ -10,9 +10,9 @@ namespace ViewComponentsDemo.ViewComponents
 {
     public class CurrentWeather : ViewComponent
     {
-        private readonly WeatherService _service;
+        private readonly IWeatherService _service;
 
-        public CurrentWeather(WeatherService service) => 
+        public CurrentWeather(IWeatherService service) => 
             _service = service;
 
         public async Task<IViewComponentResult> InvokeAsync(
@@ -29,7 +29,7 @@ namespace ViewComponentsDemo.ViewComponents
 
             Forecast currentWeather =
                 await _service.GetCurrentWeatherAsync(request);
-            VM.Weather weather = currentWeather.MapToWeather(tempScale);
+            VM.Weather weather = currentWeather?.MapToWeather(tempScale);
 
             return View(weather);
         }
