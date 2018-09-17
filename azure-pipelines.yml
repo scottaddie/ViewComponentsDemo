@@ -18,6 +18,13 @@ steps:
     arguments: '-c $(buildConfiguration)'
 
 - task: DotNetCoreCLI@2
+  displayName: test
+  inputs:
+    command: test
+    projects: '**/*.Tests/*.csproj'
+    arguments: '-c $(buildConfiguration) --collect "Code coverage"'
+
+- task: DotNetCoreCLI@2
   displayName: Publish
   inputs:
     command: publish
