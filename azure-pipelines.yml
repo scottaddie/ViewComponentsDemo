@@ -4,35 +4,35 @@
 # https://docs.microsoft.com/vsts/pipelines/languages/dotnet-core
 
 pool:
-  vmImage: 'Ubuntu 16.04'
+  vmImage: Ubuntu 16.04
 
 variables:
-  buildConfiguration: 'Release'
+  buildConfiguration: Release
 
 steps:
 - task: DotNetCoreCLI@2
   displayName: Build
   inputs:
     command: build
-    projects: '**/*.csproj'
-    arguments: '-c $(buildConfiguration)'
+    projects: **/*.csproj
+    arguments: -c $(buildConfiguration)
 
 - task: DotNetCoreCLI@2
-  displayName: test
+  displayName: Run Tests
   inputs:
     command: test
-    projects: '**/*.Tests/*.csproj'
-    arguments: '-c $(buildConfiguration) --collect "Code coverage"'
+    projects: **/*.Tests/*.csproj
+    arguments: -c $(buildConfiguration) --collect "Code coverage" -s $(System.DefaultWorkingDirectory)/CodeCoverage.runsettings
 
 - task: DotNetCoreCLI@2
   displayName: Publish
   inputs:
     command: publish
     publishWebProjects: True
-    arguments: '-c $(buildConfiguration) --output $(build.artifactstagingdirectory)'
+    arguments: -c $(buildConfiguration) --output $(build.artifactstagingdirectory)
     zipAfterPublish: True
 
 - task: PublishBuildArtifacts@1
-  displayName: 'Publish Artifact'
+  displayName: Publish Artifact
   inputs:
-    pathToPublish: '$(build.artifactstagingdirectory)'
+    pathToPublish: $(build.artifactstagingdirectory)

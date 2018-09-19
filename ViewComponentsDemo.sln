@@ -11,11 +11,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.gitattributes = .gitattributes
 		.gitignore = .gitignore
 		azure-pipelines.yml = azure-pipelines.yml
+		CodeCoverage.runsettings = CodeCoverage.runsettings
 		NuGet.Config = NuGet.Config
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ViewComponentsDemo.Tests", "ViewComponentsDemo.Tests\ViewComponentsDemo.Tests.csproj", "{C0EB431C-8F74-4E72-8120-E20F3CF5A734}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ViewComponentsDemo.Tests", "ViewComponentsDemo.Tests\ViewComponentsDemo.Tests.csproj", "{C0EB431C-8F74-4E72-8120-E20F3CF5A734}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

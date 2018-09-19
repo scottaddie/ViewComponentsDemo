@@ -7,16 +7,15 @@ using ViewComponentsDemo.Models;
 
 namespace ViewComponentsDemo.Services
 {
-    public interface IWeatherService
-    {
-        Task<Forecast> GetCurrentWeatherAsync(ForecastRequest request);
-    }
-
-    public class WeatherService : IWeatherService
+    public class WeatherService
     {
         private readonly HttpClient _httpClient;
         private readonly IConfiguration _configuration;
         private readonly IMemoryCache _cache;
+
+        public WeatherService()
+        {
+        }
 
         public WeatherService(HttpClient httpClient,
                               IConfiguration configuration,
@@ -27,7 +26,7 @@ namespace ViewComponentsDemo.Services
             _cache = cache;
         }
 
-        public async Task<Forecast> GetCurrentWeatherAsync(ForecastRequest request)
+        public virtual async Task<Forecast> GetCurrentWeatherAsync(ForecastRequest request)
         {
             const string WEATHER_CACHE_KEY = "Weather";
 

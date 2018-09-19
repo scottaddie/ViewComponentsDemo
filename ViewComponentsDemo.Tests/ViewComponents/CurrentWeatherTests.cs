@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.ViewComponents;
 using Moq;
@@ -16,7 +16,7 @@ namespace ViewComponentsDemo.Tests.ViewComponents
         public async Task InvokeAsync_Returns_ViewViewComponentResult()
         {
             // Arrange
-            var forecastRequest = new ForecastRequest
+            var request = new ForecastRequest
             {
                 City = "St. Louis",
                 CountryCode = "US",
@@ -24,12 +24,10 @@ namespace ViewComponentsDemo.Tests.ViewComponents
                 TemperatureScale = TemperatureScale.Fahrenheit.ToUnitsType()
             };
 
-            var weatherServiceMock = new Mock<IWeatherService>();
-            weatherServiceMock.Setup(stub => stub.GetCurrentWeatherAsync(forecastRequest)).ReturnsAsync(GetTestForecast());
-            // The following line is equivalent to the previous line:
-            //weatherServiceMock.Setup(stub => stub.GetCurrentWeatherAsync(forecastRequest)).Returns(Task.FromResult(currentWeather));
+            var serviceMock = new Mock<WeatherService>();
+            serviceMock.Setup(stub => stub.GetCurrentWeatherAsync(request)).ReturnsAsync(GetTestForecast());
 
-            var viewComponent = new CurrentWeather(weatherServiceMock.Object);
+            var viewComponent = new CurrentWeather(serviceMock.Object);
 
             // Act
             var result = await viewComponent.InvokeAsync("St. Louis", "US", TemperatureScale.Fahrenheit, Language.French);
