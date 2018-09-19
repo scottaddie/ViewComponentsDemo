@@ -29,7 +29,7 @@ namespace ViewComponentsDemo.ViewComponents
 
             Forecast currentWeather =
                 await _service.GetCurrentWeatherAsync(request);
-            VM.Weather weather = currentWeather.MapToWeather(tempScale);
+            VM.Weather weather = currentWeather?.MapToWeather(tempScale);
 
             return View(weather);
         }

@@ -8,6 +8,10 @@ namespace ViewComponentsDemo.Models
     /// </summary>
     public class Forecast
     {
+        public Forecast()
+        {
+        }
+
         [JsonProperty(PropertyName = "weather")]
         public List<Weather> Weather { get; set; }
         [JsonProperty(PropertyName = "main")]
