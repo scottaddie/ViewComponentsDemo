@@ -1,10 +1,8 @@
 # ViewComponentsDemo
 
+[![Build Status](https://scottaddie.visualstudio.com/ViewComponentsDemo/_apis/build/status/scottaddie.ViewComponentsDemo)](https://scottaddie.visualstudio.com/ViewComponentsDemo/_build/latest?definitionId=4)
+
 An ASP.NET Core MVC application demonstrating the use of [View Components](https://docs.microsoft.com/aspnet/core/mvc/views/view-components), Azure Key Vault, & IHttpClientFactory.
-
-### Build status
-
-[![Build status](https://scottaddie.visualstudio.com/ViewComponentsDemo/_apis/build/status/ViewComponentsDemo-CI)](https://scottaddie.visualstudio.com/ViewComponentsDemo/_build/latest?definitionId=3)
 
 ### Prerequisites
 
