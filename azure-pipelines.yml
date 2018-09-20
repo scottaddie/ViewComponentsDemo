@@ -3,36 +3,40 @@
 # Add steps that run tests, create a NuGet package, deploy, and more:
 # https://docs.microsoft.com/vsts/pipelines/languages/dotnet-core
 
-pool:
-  vmImage: vs2017-win2016
+jobs:
+- job: Windows
+  displayName: Build on Windows
 
-variables:
-  BuildConfiguration: Release
+  pool:
+    vmImage: vs2017-win2016
 
-steps:
-- task: DotNetCoreCLI@2
-  displayName: Build
-  inputs:
-    command: build
-    projects: ViewComponentsDemo.sln
-    arguments: -c $(BuildConfiguration)
+  variables:
+    BuildConfiguration: Release
 
-- task: DotNetCoreCLI@2
-  displayName: Run Tests
-  inputs:
-    command: test
-    projects: '**/*.Tests/*.csproj'
-    arguments: -c $(BuildConfiguration) --no-build --collect "Code coverage" -s $(System.DefaultWorkingDirectory)/CodeCoverage.runsettings
+  steps:
+  - task: DotNetCoreCLI@2
+    displayName: Build
+    inputs:
+      command: build
+      projects: ViewComponentsDemo.sln
+      arguments: -c $(BuildConfiguration)
 
-- task: DotNetCoreCLI@2
-  displayName: Publish
-  inputs:
-    command: publish
-    publishWebProjects: True
-    arguments: -c $(BuildConfiguration) --no-build --output $(Build.ArtifactStagingDirectory)
-    zipAfterPublish: True
+  - task: DotNetCoreCLI@2
+    displayName: Run Tests
+    inputs:
+      command: test
+      projects: '**/*.Tests/*.csproj'
+      arguments: -c $(BuildConfiguration) --no-build --logger "trx;LogFileName=TestResults.trx" --collect "Code coverage" -s $(System.DefaultWorkingDirectory)/CodeCoverage.runsettings
 
-- task: PublishBuildArtifacts@1
-  displayName: Publish Artifacts
-  inputs:
-    pathToPublish: $(Build.ArtifactStagingDirectory)
+  - task: DotNetCoreCLI@2
+    displayName: Publish
+    inputs:
+      command: publish
+      publishWebProjects: True
+      arguments: -c $(BuildConfiguration) --no-build --output $(Build.ArtifactStagingDirectory)
+      zipAfterPublish: True
+
+  - task: PublishBuildArtifacts@1
+    displayName: Publish Artifacts
+    inputs:
+      pathToPublish: $(Build.ArtifactStagingDirectory)
