@@ -14,14 +14,14 @@ steps:
   displayName: Build
   inputs:
     command: build
-    projects: **/*.csproj
+    projects: '**/*.csproj'
     arguments: -c $(BuildConfiguration)
 
 - task: DotNetCoreCLI@2
   displayName: Run Tests
   inputs:
     command: test
-    projects: **/*.Tests/*.csproj
+    projects: '**/*.Tests/*.csproj'
     arguments: -c $(BuildConfiguration) --collect "Code coverage" -s $(System.DefaultWorkingDirectory)/CodeCoverage.runsettings
 
 - task: DotNetCoreCLI@2
