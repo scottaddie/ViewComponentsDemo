@@ -2,6 +2,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <ProjectUISubcaption>.NET Core 2.1</ProjectUISubcaption>
+    <TieredCompilation>true</TieredCompilation>
     <UserSecretsId>88af32c3-004d-4919-b78d-06f2f837b67e</UserSecretsId>
   </PropertyGroup>
   <ItemGroup>
