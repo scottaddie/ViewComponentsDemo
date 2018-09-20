@@ -26,7 +26,7 @@ jobs:
     inputs:
       command: test
       projects: '**/*.Tests/*.csproj'
-      arguments: -c $(BuildConfiguration) --no-build --logger "trx;LogFileName=TestResults.trx" --collect "Code coverage" -s $(System.DefaultWorkingDirectory)/CodeCoverage.runsettings
+      arguments: -c $(BuildConfiguration) --no-build --collect "Code coverage" -s $(System.DefaultWorkingDirectory)/CodeCoverage.runsettings
 
   - task: DotNetCoreCLI@2
     displayName: Publish
