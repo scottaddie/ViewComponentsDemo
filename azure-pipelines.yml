@@ -14,7 +14,7 @@ steps:
   displayName: Build
   inputs:
     command: build
-    projects: '**/*.csproj'
+    projects: ViewComponentsDemo.sln
     arguments: -c $(BuildConfiguration)
 
 - task: DotNetCoreCLI@2
@@ -22,14 +22,14 @@ steps:
   inputs:
     command: test
     projects: '**/*.Tests/*.csproj'
-    arguments: -c $(BuildConfiguration) --collect "Code coverage" -s $(System.DefaultWorkingDirectory)/CodeCoverage.runsettings
+    arguments: -c $(BuildConfiguration) --no-build --collect "Code coverage" -s $(System.DefaultWorkingDirectory)/CodeCoverage.runsettings
 
 - task: DotNetCoreCLI@2
   displayName: Publish
   inputs:
     command: publish
     publishWebProjects: True
-    arguments: -c $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)
+    arguments: -c $(BuildConfiguration) --no-build --output $(Build.ArtifactStagingDirectory)
     zipAfterPublish: True
 
 - task: PublishBuildArtifacts@1
