@@ -1,6 +1,9 @@
 # top-most EditorConfig file
 root = true
 
+[*.yml]
+indent_style = space
+
 [*.cs]
 insert_final_newline = true
 charset = utf-8-bom
