@@ -5,7 +5,7 @@ parameters:
 
 jobs:
 - job: ${{ parameters.operatingSystem }}
-  displayName: 'Build on ${{ parameters.operatingSystem }}'
+  displayName: ${{ parameters.operatingSystem }}
 
   pool:
     vmImage: ${{ parameters.vmImage }}
