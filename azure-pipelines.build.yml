@@ -4,11 +4,11 @@ parameters:
   vmImage: ''
 
 jobs:
-- job: ${{parameters.operatingSystem}}
-  displayName: Build on ${{parameters.operatingSystem}}
+- job: ${{ parameters.operatingSystem }}
+  displayName: Build on ${{ parameters.operatingSystem }}
 
   pool:
-    vmImage: ${{parameters.vmImage}}
+    vmImage: ${{ parameters.vmImage }}
 
   variables:
     BuildConfiguration: Release
