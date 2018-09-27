@@ -24,7 +24,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{FDBA4FA9
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Templates", "Templates", "{E3374572-CC28-45E2-B29E-F399EEF7CA65}"
 	ProjectSection(SolutionItems) = preProject
-		build.yml = build.yml
+		azure-pipelines.build.yml = azure-pipelines.build.yml
 	EndProjectSection
 EndProject
 Global
