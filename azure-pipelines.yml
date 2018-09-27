@@ -3,13 +3,16 @@
 # Add steps that run tests, create a NuGet package, deploy, and more:
 # https://docs.microsoft.com/vsts/pipelines/languages/dotnet-core
 
+variables:
+  BuildTemplate: azure-pipelines.build.yml
+
 jobs:
-- template: azure-pipelines.build.yml
+- template: $(BuildTemplate)
   parameters:
     operatingSystem: Windows
     vmImage: vs2017-win2016
 
-- template: azure-pipelines.build.yml
+- template: $(BuildTemplate)
   parameters:
     operatingSystem: Linux
     vmImage: ubuntu-16.04
