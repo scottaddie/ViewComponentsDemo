@@ -4,12 +4,12 @@
 # https://docs.microsoft.com/vsts/pipelines/languages/dotnet-core
 
 jobs:
-- template: Templates/build.yml
+- template: azure-pipelines.build.yml
   parameters:
     operatingSystem: Windows
     vmImage: vs2017-win2016
 
-- template: Templates/build.yml
+- template: azure-pipelines.build.yml
   parameters:
     operatingSystem: Linux
     vmImage: ubuntu-16.04
