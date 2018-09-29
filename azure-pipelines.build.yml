@@ -22,16 +22,17 @@ jobs:
       arguments: -c $(BuildConfiguration)
 
   - task: DotNetCoreCLI@2
-    displayName: Test
+    displayName: Run Tests
     inputs:
       command: test
       projects: '**/*.Tests/*.csproj'
       arguments: -c $(BuildConfiguration) --no-build --settings $(System.DefaultWorkingDirectory)/CodeCoverage.runsettings /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura
 
-  #- task: PublishCodeCoverageResults@1
-  #  inputs:
-  #    codeCoverageTool: cobertura
-  #    summaryFileLocation: 
+  - task: PublishCodeCoverageResults@1
+    displayName: Publish Code Coverage Results
+    inputs:
+      codeCoverageTool: cobertura
+      summaryFileLocation: $(System.DefaultWorkingDirectory)/ViewComponentsDemo.Tests/coverage.cobertura.xml
 
   - task: DotNetCoreCLI@2
     displayName: Publish
@@ -42,6 +43,6 @@ jobs:
       zipAfterPublish: True
 
   - task: PublishBuildArtifacts@1
-    displayName: Publish Artifacts
+    displayName: Publish Package Artifacts
     inputs:
       pathToPublish: $(Build.ArtifactStagingDirectory)
