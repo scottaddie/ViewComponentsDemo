@@ -26,7 +26,12 @@ jobs:
     inputs:
       command: test
       projects: '**/*.Tests/*.csproj'
-      arguments: -c $(BuildConfiguration) --no-build --collect "Code coverage" -s $(System.DefaultWorkingDirectory)/CodeCoverage.runsettings
+      arguments: -c $(BuildConfiguration) --no-build --settings $(System.DefaultWorkingDirectory)/CodeCoverage.runsettings /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura
+
+  #- task: PublishCodeCoverageResults@1
+  #  inputs:
+  #    codeCoverageTool: cobertura
+  #    summaryFileLocation: 
 
   - task: DotNetCoreCLI@2
     displayName: Publish
