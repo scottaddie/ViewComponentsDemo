@@ -25,14 +25,22 @@ jobs:
     displayName: Run Tests
     inputs:
       command: test
-      projects: '**/*.Tests/*.csproj'
-      arguments: -c $(BuildConfiguration) --no-build --settings $(System.DefaultWorkingDirectory)/CodeCoverage.runsettings /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura
+      projects: '**/ViewComponentsDemo.Tests/ViewComponentsDemo.Tests.csproj'
+      arguments: -c $(BuildConfiguration) --no-build --settings $(System.DefaultWorkingDirectory)/CodeCoverage.runsettings /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=./CodeCoverage/coverage.cobertura.xml
+
+  - task: DotNetCoreCLI@2
+    displayName: Generate Code Coverage HTML Report
+    inputs:
+      command: custom
+      custom: reportgenerator
+      arguments: -reports:$(System.DefaultWorkingDirectory)/ViewComponentsDemo.Tests/CodeCoverage/coverage.cobertura.xml -targetdir:CodeCoverage -reporttypes:Html
 
   - task: PublishCodeCoverageResults@1
     displayName: Publish Code Coverage Results
     inputs:
       codeCoverageTool: cobertura
-      summaryFileLocation: $(System.DefaultWorkingDirectory)/ViewComponentsDemo.Tests/coverage.cobertura.xml
+      summaryFileLocation: $(System.DefaultWorkingDirectory)/ViewComponentsDemo.Tests/CodeCoverage/coverage.cobertura.xml
+      reportDirectory: $(System.DefaultWorkingDirectory)/ViewComponentsDemo.Tests/CodeCoverage/index.htm
 
   - task: DotNetCoreCLI@2
     displayName: Publish
