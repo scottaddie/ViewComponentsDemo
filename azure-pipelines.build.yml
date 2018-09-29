@@ -29,11 +29,14 @@ jobs:
       arguments: -c $(BuildConfiguration) --no-build --settings $(System.DefaultWorkingDirectory)/CodeCoverage.runsettings /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=./CodeCoverage/coverage.cobertura.xml
 
   - task: DotNetCoreCLI@2
-    displayName: Generate Code Coverage HTML Report
+    displayName: Install ReportGenerator Global Tool
     inputs:
       command: custom
-      custom: reportgenerator
-      arguments: -reports:$(System.DefaultWorkingDirectory)/ViewComponentsDemo.Tests/CodeCoverage/coverage.cobertura.xml -targetdir:CodeCoverage -reporttypes:Html
+      custom: tool
+      arguments: install -g dotnet-reportgenerator-globaltool
+      
+  - script: reportgenerator -reports:$(System.DefaultWorkingDirectory)/ViewComponentsDemo.Tests/CodeCoverage/coverage.cobertura.xml -targetdir:CodeCoverage -reporttypes:Html
+    displayName: Generate Code Coverage HTML Report
 
   - task: PublishCodeCoverageResults@1
     displayName: Publish Code Coverage Results

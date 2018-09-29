@@ -20,10 +20,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <DotNetCliToolReference Include="dotnet-reportgenerator-cli" Version="4.0.0-rc6" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\ViewComponentsDemo\ViewComponentsDemo.csproj" />
   </ItemGroup>
 
