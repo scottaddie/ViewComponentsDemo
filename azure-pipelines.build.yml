@@ -33,7 +33,7 @@ jobs:
     inputs:
       command: custom
       custom: tool
-      arguments: install --tool-path . dotnet-reportgenerator-globaltool --version 4.0.0-rc6 --verbosity diag
+      arguments: install -g dotnet-reportgenerator-globaltool --version 4.0.0-rc6 --verbosity d
       
   - script: reportgenerator -reports:$(System.DefaultWorkingDirectory)/ViewComponentsDemo.Tests/CodeCoverage/coverage.cobertura.xml -targetdir:CodeCoverage -reporttypes:Html
     displayName: Generate Code Coverage HTML Report
