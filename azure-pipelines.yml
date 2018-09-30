@@ -6,10 +6,12 @@
 jobs:
 - template: azure-pipelines.build.yml
   parameters:
+    globalToolsPathScript: 'setx PATH "$env:PATH;$env:USERPROFILE/.dotnet/tools"'
     operatingSystem: Windows
     vmImage: vs2017-win2016
 
 - template: azure-pipelines.build.yml
   parameters:
+    globalToolsPathScript: 'echo "export PATH=\"\$PATH:\$HOME/.dotnet/tools\"" >> ~/.bash_profile'
     operatingSystem: Linux
     vmImage: ubuntu-16.04
