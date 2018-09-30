@@ -43,7 +43,7 @@ jobs:
     inputs:
       codeCoverageTool: cobertura
       summaryFileLocation: $(System.DefaultWorkingDirectory)/ViewComponentsDemo.Tests/CodeCoverage/coverage.cobertura.xml
-      reportDirectory: $(System.DefaultWorkingDirectory)/ViewComponentsDemo.Tests/CodeCoverage/index.htm
+      reportDirectory: $(System.DefaultWorkingDirectory)/ViewComponentsDemo.Tests/CodeCoverage
 
   - task: DotNetCoreCLI@2
     displayName: Publish
