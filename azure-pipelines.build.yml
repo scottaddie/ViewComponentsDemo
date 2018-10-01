@@ -26,13 +26,13 @@ jobs:
     inputs:
       command: test
       projects: '**/ViewComponentsDemo.Tests/ViewComponentsDemo.Tests.csproj'
-      arguments: -c $(BuildConfiguration) --no-build --logger trx --settings $(Build.SourcesDirectory)/CodeCoverage.runsettings /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=$(Build.SourcesDirectory)/CodeCoverage/coverage.cobertura.xml
+      arguments: -c $(BuildConfiguration) --no-build --settings $(Build.SourcesDirectory)/CodeCoverage.runsettings /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=$(Build.SourcesDirectory)/CodeCoverage/coverage.cobertura.xml
 
   - task: PublishTestResults@2
     displayName: Publish Unit Test Results
     inputs:
       testRunner: VSTest
-      testResultsFiles: '**/*.trx'
+      testResultsFiles: '$(Agent.TempDirectory)/*.trx'
 
   - task: DotNetCoreCLI@2
     displayName: Install ReportGenerator Global Tool
