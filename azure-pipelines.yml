@@ -4,39 +4,12 @@
 # https://docs.microsoft.com/vsts/pipelines/languages/dotnet-core
 
 jobs:
-- job: Windows
-  displayName: Build on Windows
-
-  pool:
+- template: azure-pipelines.build.yml
+  parameters:
+    operatingSystem: Windows
     vmImage: vs2017-win2016
 
-  variables:
-    BuildConfiguration: Release
-
-  steps:
-  - task: DotNetCoreCLI@2
-    displayName: Build
-    inputs:
-      command: build
-      projects: ViewComponentsDemo.sln
-      arguments: -c $(BuildConfiguration)
-
-  - task: DotNetCoreCLI@2
-    displayName: Run Tests
-    inputs:
-      command: test
-      projects: '**/*.Tests/*.csproj'
-      arguments: -c $(BuildConfiguration) --no-build --collect "Code coverage" -s $(System.DefaultWorkingDirectory)/CodeCoverage.runsettings
-
-  - task: DotNetCoreCLI@2
-    displayName: Publish
-    inputs:
-      command: publish
-      publishWebProjects: True
-      arguments: -c $(BuildConfiguration) --no-build --output $(Build.ArtifactStagingDirectory)
-      zipAfterPublish: True
-
-  - task: PublishBuildArtifacts@1
-    displayName: Publish Artifacts
-    inputs:
-      pathToPublish: $(Build.ArtifactStagingDirectory)
+- template: azure-pipelines.build.yml
+  parameters:
+    operatingSystem: Linux
+    vmImage: ubuntu-16.04

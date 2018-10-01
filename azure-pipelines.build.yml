@@ -1,0 +1,59 @@
+# define the expected parameters
+parameters:
+  operatingSystem: ''
+  vmImage: ''
+
+jobs:
+- job: ${{ parameters.operatingSystem }}
+  displayName: ${{ format('Build on {0}', parameters.operatingSystem) }}
+
+  pool:
+    vmImage: ${{ parameters.vmImage }}
+
+  variables:
+    BuildConfiguration: Release
+
+  steps:
+  - task: DotNetCoreCLI@2
+    displayName: Build
+    inputs:
+      command: build
+      projects: ViewComponentsDemo.sln
+      arguments: -c $(BuildConfiguration)
+
+  - task: DotNetCoreCLI@2
+    displayName: Run Tests
+    inputs:
+      command: test
+      projects: '**/ViewComponentsDemo.Tests/ViewComponentsDemo.Tests.csproj'
+      arguments: -c $(BuildConfiguration) --no-build --settings $(Build.SourcesDirectory)/CodeCoverage.runsettings /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=$(Build.SourcesDirectory)/CodeCoverage/coverage.cobertura.xml
+
+  - task: DotNetCoreCLI@2
+    displayName: Install ReportGenerator Global Tool
+    inputs:
+      command: custom
+      custom: tool
+      arguments: install dotnet-reportgenerator-globaltool --version 4.0.0-rc6 --tool-path .
+      
+  - script: reportgenerator "-reports:$(Build.SourcesDirectory)/CodeCoverage/coverage.cobertura.xml" "-targetdir:CodeCoverage" "-reporttypes:HTMLInline;HTMLChart"
+    displayName: Generate Code Coverage HTML Report
+
+  - task: PublishCodeCoverageResults@1
+    displayName: Publish Code Coverage Results
+    inputs:
+      codeCoverageTool: cobertura
+      summaryFileLocation: $(Build.SourcesDirectory)/CodeCoverage/coverage.cobertura.xml
+      reportDirectory: $(Build.SourcesDirectory)/CodeCoverage
+
+  - task: DotNetCoreCLI@2
+    displayName: Publish
+    inputs:
+      command: publish
+      publishWebProjects: True
+      arguments: -c $(BuildConfiguration) --no-build --output $(Build.ArtifactStagingDirectory)
+      zipAfterPublish: True
+
+  - task: PublishBuildArtifacts@1
+    displayName: Publish Package Artifacts
+    inputs:
+      pathToPublish: $(Build.ArtifactStagingDirectory)
