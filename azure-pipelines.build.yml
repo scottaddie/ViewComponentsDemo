@@ -1,6 +1,5 @@
 # define the expected parameters
 parameters:
-  globalToolsPathScript: ''
   operatingSystem: ''
   vmImage: ''
 
