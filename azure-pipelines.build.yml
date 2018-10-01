@@ -34,12 +34,9 @@ jobs:
     inputs:
       command: custom
       custom: tool
-      arguments: install -g dotnet-reportgenerator-globaltool --version 4.0.0-rc6 --verbosity d
+      arguments: install dotnet-reportgenerator-globaltool --version 4.0.0-rc6 --tool-path .
       
-  - script: ${{ parameters.globalToolsPathScript }}
-    displayName: Add .NET Core Global Tools directory to PATH
-
-  - script: reportgenerator -reports:$(System.DefaultWorkingDirectory)/ViewComponentsDemo.Tests/CodeCoverage/coverage.cobertura.xml -targetdir:CodeCoverage -reporttypes:Html
+  - script: reportgenerator "-reports:$(System.DefaultWorkingDirectory)/ViewComponentsDemo.Tests/CodeCoverage/coverage.cobertura.xml" "-targetdir:CodeCoverage" "-reporttypes:HTMLInline;HTMLChart"
     displayName: Generate Code Coverage HTML Report
 
   - task: PublishCodeCoverageResults@1
