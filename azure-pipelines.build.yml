@@ -27,7 +27,7 @@ jobs:
     inputs:
       command: test
       projects: '**/ViewComponentsDemo.Tests/ViewComponentsDemo.Tests.csproj'
-      arguments: -c $(BuildConfiguration) --no-build --settings $(System.DefaultWorkingDirectory)/CodeCoverage.runsettings /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=./CodeCoverage/coverage.cobertura.xml
+      arguments: -c $(BuildConfiguration) --no-build --settings $(Build.SourcesDirectory)/CodeCoverage.runsettings /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=$(Build.SourcesDirectory)/CodeCoverage/coverage.cobertura.xml
 
   - task: DotNetCoreCLI@2
     displayName: Install ReportGenerator Global Tool
@@ -36,15 +36,15 @@ jobs:
       custom: tool
       arguments: install dotnet-reportgenerator-globaltool --version 4.0.0-rc6 --tool-path .
       
-  - script: reportgenerator "-reports:$(System.DefaultWorkingDirectory)/ViewComponentsDemo.Tests/CodeCoverage/coverage.cobertura.xml" "-targetdir:CodeCoverage" "-reporttypes:HTMLInline;HTMLChart"
+  - script: reportgenerator "-reports:$(Build.SourcesDirectory)/CodeCoverage/coverage.cobertura.xml" "-targetdir:CodeCoverage" "-reporttypes:HTMLInline;HTMLChart"
     displayName: Generate Code Coverage HTML Report
 
   - task: PublishCodeCoverageResults@1
     displayName: Publish Code Coverage Results
     inputs:
       codeCoverageTool: cobertura
-      summaryFileLocation: $(System.DefaultWorkingDirectory)/ViewComponentsDemo.Tests/CodeCoverage/coverage.cobertura.xml
-      reportDirectory: $(System.DefaultWorkingDirectory)/ViewComponentsDemo.Tests/CodeCoverage
+      summaryFileLocation: $(Build.SourcesDirectory)/CodeCoverage/coverage.cobertura.xml
+      reportDirectory: $(Build.SourcesDirectory)/CodeCoverage
 
   - task: DotNetCoreCLI@2
     displayName: Publish
