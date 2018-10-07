@@ -20,12 +20,12 @@
     "ViewComponentsDemo": {
       "commandName": "Project",
       "launchBrowser": true,
+      "applicationUrl": "https://localhost:5001;http://localhost:5000",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
         "ASPNETCORE_HOSTINGSTARTUP__KEYVAULT__CONFIGURATIONENABLED": "true",
         "ASPNETCORE_HOSTINGSTARTUP__KEYVAULT__CONFIGURATIONVAULT": "https://ViewComponentsDemoVault.vault.azure.net"
-      },
-      "applicationUrl": "http://localhost:5419"
+      }
     }
   }
 }

@@ -78,7 +78,7 @@ namespace ViewComponentsDemo.Mappers
 
                 if (!string.IsNullOrEmpty(c.Icon))
                 {
-                    iconMarkup = $"<img src='http://openweathermap.org/img/w/{c.Icon}.png' alt='Icon depicting current weather' />";
+                    iconMarkup = $"<img src='https://openweathermap.org/img/w/{c.Icon}.png' alt='Icon depicting current weather' />";
                 }
 
                 conditions += $"{c.Main} ( {c.Description} ) {iconMarkup}<br />";
