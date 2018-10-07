@@ -9,7 +9,7 @@ jobs:
     operatingSystem: Windows
     vmImage: vs2017-win2016
 
-- template: azure-pipelines.build.yml
-  parameters:
-    operatingSystem: Linux
-    vmImage: ubuntu-16.04
+#- template: azure-pipelines.build.yml
+#  parameters:
+#    operatingSystem: Linux
+#    vmImage: ubuntu-16.04
