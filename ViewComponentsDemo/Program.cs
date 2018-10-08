@@ -23,8 +23,6 @@ namespace ViewComponentsDemo
 
         private static void ConfigureKeyVault(ref IConfigurationBuilder config)
         {
-            string keyVaultEndpoint = Environment.GetEnvironmentVariable(
-                "ASPNETCORE_HOSTINGSTARTUP__KEYVAULT__CONFIGURATIONVAULT");
             bool.TryParse(Environment.GetEnvironmentVariable(
                 "ASPNETCORE_HOSTINGSTARTUP__KEYVAULT__CONFIGURATIONENABLED"),
                 out bool isKeyVaultEnabled);
@@ -37,6 +35,9 @@ namespace ViewComponentsDemo
                 var keyVaultClient = new KeyVaultClient(
                     new KeyVaultClient.AuthenticationCallback(
                         azureServiceTokenProvider.KeyVaultTokenCallback));
+
+                string keyVaultEndpoint = Environment.GetEnvironmentVariable(
+                    "ASPNETCORE_HOSTINGSTARTUP__KEYVAULT__CONFIGURATIONVAULT");
 
                 config.AddAzureKeyVault(
                     keyVaultEndpoint, keyVaultClient, new DefaultKeyVaultSecretManager());
