@@ -23,16 +23,21 @@ namespace ViewComponentsDemo
 
         private static void ConfigureKeyVault(ref IConfigurationBuilder config)
         {
-            string keyVaultEndpoint = Environment.GetEnvironmentVariable("KEYVAULT_ENDPOINT");
+            bool.TryParse(Environment.GetEnvironmentVariable(
+                "ASPNETCORE_HOSTINGSTARTUP__KEYVAULT__CONFIGURATIONENABLED"),
+                out bool isKeyVaultEnabled);
 
-            // If the environment variable isn't set, it means we're running locally.
+            // If the environment variable is false, it means we're running locally.
             // In that case, use the .NET Core Secret Manager tool to retrieve secrets.
-            if (!String.IsNullOrEmpty(keyVaultEndpoint))
+            if (isKeyVaultEnabled)
             {
                 var azureServiceTokenProvider = new AzureServiceTokenProvider();
                 var keyVaultClient = new KeyVaultClient(
                     new KeyVaultClient.AuthenticationCallback(
                         azureServiceTokenProvider.KeyVaultTokenCallback));
+
+                string keyVaultEndpoint = Environment.GetEnvironmentVariable(
+                    "ASPNETCORE_HOSTINGSTARTUP__KEYVAULT__CONFIGURATIONVAULT");
 
                 config.AddAzureKeyVault(
                     keyVaultEndpoint, keyVaultClient, new DefaultKeyVaultSecretManager());
