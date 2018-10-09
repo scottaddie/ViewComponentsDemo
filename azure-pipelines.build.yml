@@ -3,7 +3,7 @@ parameters:
   operatingSystem: ''
   vmImage: ''
 
-jobs:
+#jobs:
 - job: ${{ parameters.operatingSystem }}
   displayName: ${{ format('Build on {0}', parameters.operatingSystem) }}
 
