@@ -36,15 +36,15 @@ namespace ViewComponentsDemo.Services
                 // Key not in cache, so get data
 
                 // Fetch the user secret
-                var apiKey = _configuration.GetValue<string>("OpenWeatherMapApiKey");
+                string apiKey = _configuration["OpenWeatherMapApiKey"];
 
                 if (String.IsNullOrWhiteSpace(apiKey))
                 {
-                    throw new ArgumentException("Unable to find an OpenWeatherMap API key in the user secret store.");
+                    throw new ArgumentException("Unable to find an OpenWeatherMap API key in the secret store.");
                 }
 
                 IConfigurationSection weatherConfig = _configuration.GetSection("Weather");
-                var baseUrl = weatherConfig.GetValue<string>("ApiBaseUrl");
+                string baseUrl = weatherConfig["ApiBaseUrl"];
                 var endpointUrl = $"{baseUrl}?q={request.City},{request.CountryCode}&lang={request.LanguageCode}&units={request.TemperatureScale}&appid={apiKey}";
 
                 var response = await _httpClient.GetAsync(endpointUrl);

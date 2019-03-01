@@ -1,16 +1,18 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.1</TargetFramework>
-    <ProjectUISubcaption>.NET Core 2.1</ProjectUISubcaption>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <ProjectUISubcaption>.NET Core 2.2</ProjectUISubcaption>
+    <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
     <TieredCompilation>true</TieredCompilation>
     <UserSecretsId>88af32c3-004d-4919-b78d-06f2f837b67e</UserSecretsId>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.App" Version="2.1.4" />
+    <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.AzureKeyVault.HostingStartup" Version="2.0.4" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.AzureKeyVault" Version="2.1.1" />
-    <PackageReference Include="Microsoft.Extensions.Http.Polly" Version="2.1.1" />
-    <PackageReference Include="Microsoft.Web.LibraryManager.Build" Version="1.0.163" />
+    <PackageReference Include="Microsoft.Extensions.Caching.Abstractions" Version="2.2.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.AzureKeyVault" Version="2.2.0" />
+    <PackageReference Include="Microsoft.Extensions.Http.Polly" Version="2.2.0" />
+    <PackageReference Include="Microsoft.Web.LibraryManager.Build" Version="1.0.172" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services" />
