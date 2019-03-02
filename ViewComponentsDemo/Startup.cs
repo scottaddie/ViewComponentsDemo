@@ -27,15 +27,12 @@ namespace ViewComponentsDemo
 
             services.AddMemoryCache();
 
-            // Register IConfiguration with DI system to support IConfiguration.GetValue approach
-            services.AddSingleton(Configuration);
-
             // Failed requests with the typed HTTP client are retried up to 3 times.
             services.AddHttpClient<WeatherService>()
                     .AddTransientHttpErrorPolicy(p => p.RetryAsync(3));
 
             services.AddMvc()
-                    .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+                    .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
