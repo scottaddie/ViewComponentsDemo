@@ -10,7 +10,7 @@ An ASP.NET Core MVC app demonstrating the use of:
 
 ### Prerequisites
 
-1. .NET Core SDK 2.1 or later. ([Download here](https://www.microsoft.com/net/download/all))
+1. .NET Core SDK 2.2 or later. ([Download here](https://www.microsoft.com/net/download/all))
 
 ### Setup
 
