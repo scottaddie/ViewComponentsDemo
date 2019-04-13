@@ -4,7 +4,7 @@
     <ProjectUISubcaption>.NET Core 2.2</ProjectUISubcaption>
     <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
     <TieredCompilation>true</TieredCompilation>
-    <UserSecretsId>88af32c3-004d-4919-b78d-06f2f837b67e</UserSecretsId>
+    <UserSecretsId>$(AssemblyName)</UserSecretsId>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
