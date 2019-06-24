@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using System;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -20,7 +21,6 @@ namespace ViewComponentsDemo
         {
             services.Configure<CookiePolicyOptions>(options =>
             {
-                // This lambda determines whether user consent for non-essential cookies is needed for a given request.
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
@@ -28,8 +28,12 @@ namespace ViewComponentsDemo
             services.AddMemoryCache();
 
             // Failed requests with the typed HTTP client are retried up to 3 times.
-            services.AddHttpClient<WeatherService>()
-                    .AddTransientHttpErrorPolicy(p => p.RetryAsync(3));
+            services.AddHttpClient<WeatherService>(config =>
+            {
+                config.BaseAddress = new Uri(Configuration["Weather:ApiBaseUrl"]);
+                config.DefaultRequestHeaders.Add("Accept", "application/json");
+            })
+            .AddTransientHttpErrorPolicy(p => p.RetryAsync(3));
 
             services.AddMvc()
                     .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);

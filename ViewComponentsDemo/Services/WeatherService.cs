@@ -43,9 +43,7 @@ namespace ViewComponentsDemo.Services
                     throw new ArgumentException("Unable to find an OpenWeatherMap API key in the secret store.");
                 }
 
-                IConfigurationSection weatherConfig = _configuration.GetSection("Weather");
-                string baseUrl = weatherConfig["ApiBaseUrl"];
-                var endpointUrl = $"{baseUrl}?q={request.City},{request.CountryCode}&lang={request.LanguageCode}&units={request.TemperatureScale}&appid={apiKey}";
+                var endpointUrl = $"?q={request.City},{request.CountryCode}&lang={request.LanguageCode}&units={request.TemperatureScale}&appid={apiKey}";
 
                 var response = await _httpClient.GetAsync(endpointUrl);
                 response.EnsureSuccessStatusCode();
@@ -55,7 +53,7 @@ namespace ViewComponentsDemo.Services
                 var cacheEntryOptions = new MemoryCacheEntryOptions
                 {
                     SlidingExpiration = TimeSpan.FromSeconds(
-                        weatherConfig.GetValue<int>("CacheDuration"))
+                        _configuration.GetValue<int>("Weather:CacheDuration"))
                 };
 
                 // Save data in cache

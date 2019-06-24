@@ -8,7 +8,7 @@ namespace ViewComponentsDemo.Mappers
     {
         Bulgarian,
         English,
-        French
+        French,
     }
 
     public static class LanguageExtensions
@@ -92,7 +92,7 @@ namespace ViewComponentsDemo.Mappers
                 Scale = tempScale.ToFriendlyString(),
                 TemperatureCurrent = Math.Ceiling(response.Main.Temp),
                 TemperatureLow = Math.Ceiling(response.Main.Temp_Min),
-                TemperatureHigh = Math.Ceiling(response.Main.Temp_Max)
+                TemperatureHigh = Math.Ceiling(response.Main.Temp_Max),
             };
 
             return weather;
