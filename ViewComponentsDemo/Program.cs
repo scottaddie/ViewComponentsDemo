@@ -15,13 +15,11 @@ namespace ViewComponentsDemo
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
-                   .ConfigureAppConfiguration(config =>
-                   {
-                       ConfigureKeyVault(ref config);
-                   })
+                   .ConfigureAppConfiguration(config => 
+                        ConfigureKeyVault(config))
                    .UseStartup<Startup>();
 
-        private static void ConfigureKeyVault(ref IConfigurationBuilder config)
+        private static void ConfigureKeyVault(IConfigurationBuilder config)
         {
             bool.TryParse(Environment.GetEnvironmentVariable(
                 "ASPNETCORE_HOSTINGSTARTUP__KEYVAULT__CONFIGURATIONENABLED"),
