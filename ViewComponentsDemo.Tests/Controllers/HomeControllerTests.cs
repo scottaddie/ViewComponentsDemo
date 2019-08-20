@@ -11,7 +11,7 @@ namespace ViewComponentsDemo.Tests.Controllers
 
         public HomeControllerTests()
         {
-            _configuration = InitConfiguration();
+            _configuration = TestHelper.InitConfiguration();
         }
 
         [Fact]
@@ -25,15 +25,6 @@ namespace ViewComponentsDemo.Tests.Controllers
 
             // Assert
             Assert.IsType<ViewComponentResult>(result);
-        }
-
-        private IConfigurationRoot InitConfiguration()
-        {
-            var config = new ConfigurationBuilder()
-                .AddJsonFile("appsettings.test.json")
-                .Build();
-
-            return config;
         }
     }
 }
