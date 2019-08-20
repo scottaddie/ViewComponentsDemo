@@ -7,7 +7,7 @@ namespace ViewComponentsDemo.Tests
         public static IConfigurationRoot InitConfiguration()
         {
             var config = new ConfigurationBuilder()
-                .AddJsonFile("appsettings.test.json")
+                .AddJsonFile("appsettings.json")
                 .Build();
 
             return config;
