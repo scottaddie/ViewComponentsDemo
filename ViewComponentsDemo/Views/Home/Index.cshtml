@@ -1,15 +1,18 @@
 ﻿@using ViewComponentsDemo.ViewComponents
 @using ViewComponentsDemo.Mappers
+@using Microsoft.Extensions.Configuration
+@inject IConfiguration Configuration
 
 @{
     ViewData["Title"] = "Invoking VC";
+    IConfigurationSection weatherConfig = Configuration.GetSection("Weather");
 }
 
 <h3>Invoking a View Component</h3>
 @await Component.InvokeAsync(nameof(CurrentWeather),
     new {
-        city = "Milwaukee",
-        countryCode = "US",
+        city = weatherConfig["City"],
+        countryCode = weatherConfig["CountryCode"],
         tempScale = TemperatureScale.Fahrenheit,
-        lang = Language.French
+        lang = Language.French,
     })

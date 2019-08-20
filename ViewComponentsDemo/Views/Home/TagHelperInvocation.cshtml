@@ -1,9 +1,13 @@
-﻿@{
+﻿@using Microsoft.Extensions.Configuration
+@inject IConfiguration Configuration
+
+@{
     ViewData["Title"] = "Invoking VC as TH";
+    IConfigurationSection weatherConfig = Configuration.GetSection("Weather");
 }
 
 <h3>Invoking a View Component as a Tag Helper</h3>
-<vc:current-weather city="Milwaukee" 
-                    country-code="US" 
+<vc:current-weather city="@weatherConfig["City"]"
+                    country-code="@weatherConfig["CountryCode"]"
                     temp-scale="Fahrenheit"
                     lang="French" />
